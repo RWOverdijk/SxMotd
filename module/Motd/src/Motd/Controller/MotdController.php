@@ -11,28 +11,30 @@ use Doctrine\ORM\EntityManager;
 class MotdController extends AbstractActionController
 {
     /**
-     * @var EntityRepository
+     * @var Motd\Service\Motd
      */
-    protected $repository;
+    protected $motdService;
 
     public function editAction()
     {
-        $motd = $this->getRepository()->find(1);
+        if (($this->getRequest()->isPost())) {
+            $this->getMotdService()->setMotd($this->getRequest()->getPost()->get('motd'));
+            return $this->redirect()->toRoute('motd');
+        }
 
         $viewModel       = new ViewModel();
-        $form            = new MotdForm('new-motd');
+        $form            = new MotdForm($this->getMotdService()->getEntity(), 'new-motd');
         $viewModel->form = $form;
 
         return $viewModel;
     }
 
-    protected function getRepository()
+    protected function getMotdService()
     {
-        if (null === $this->repository) {
-            $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-            $this->repository = $em->getRepository('Motd\Entity\Motd');
+        if (null === $this->motdService) {
+            $this->motdService = $this->getServiceLocator()->get('Motd');
         }
 
-        return $this->repository;
+        return $this->motdService;
     }
 }

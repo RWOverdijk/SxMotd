@@ -1,14 +1,19 @@
 <?php
 namespace Motd\Form;
 
+use Motd\Entity\Motd as MotdEntity;
 use Zend\Form\Form;
+use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 
 class MotdForm extends Form
 {
-    public function __construct($name = null)
+    public function __construct(MotdEntity $motd, $name = null)
     {
-        parent::__construct($name);
 
+
+        $this->setHydrator(new ClassMethodsHydrator(false))->setObject($motd);
+
+        parent::__construct($name);
         $this->init();
     }
 

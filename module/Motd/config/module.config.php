@@ -13,6 +13,11 @@ return array(
             ),
         ),
     ),
+    'service_manager' => array(
+        'invokables' => array(
+            'Motd' => 'Motd\Service\Motd',
+        ),
+    ),
     'controllers' => array(
         'invokables' => array(
             'Motd\Controller\Motd' => 'Motd\Controller\MotdController',

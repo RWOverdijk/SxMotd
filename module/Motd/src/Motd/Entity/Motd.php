@@ -12,7 +12,7 @@ class Motd
     /**
      * @ORM\Id()
      * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="auto")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @var integer
      */
     protected $id;
@@ -23,6 +23,11 @@ class Motd
      */
     protected $message;
 
+    /**
+     * Construct the Motd.
+     * 
+     * @param string $message
+     */
     public function __construct($message)
     {
         $this->setMessage($message);
