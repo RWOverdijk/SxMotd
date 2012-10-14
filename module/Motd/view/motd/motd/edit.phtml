@@ -1,0 +1,19 @@
+<?php
+$form = $this->form;
+$form->prepare();
+$form->setAttribute('action', $this->url('motd/update'));
+$form->setAttribute('method', 'post');
+?>
+
+<?php echo $this->form()->openTag($form) ?>
+
+    <dl class="zend_form">
+        <?php echo $this->formElementErrors($form->get('motd')) ?>
+
+        <dt><?php echo $this->formLabel($form->get('motd')) ?></dt>
+        <dd><?php echo $this->formInput($form->get('motd')) ?></dd>
+
+        <dd><?php echo $this->formButton($form->get('save')) ?></dd>
+    </dl>
+
+<?php echo $this->form()->closeTag() ?>
