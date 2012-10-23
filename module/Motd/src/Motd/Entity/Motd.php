@@ -24,16 +24,6 @@ class Motd
     protected $message;
 
     /**
-     * Construct the Motd.
-     * 
-     * @param string $message
-     */
-    public function __construct($message)
-    {
-        $this->setMessage($message);
-    }
-
-    /**
      * @return integer
      */
     public function getId()

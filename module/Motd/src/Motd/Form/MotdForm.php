@@ -24,6 +24,9 @@ class MotdForm extends Form
             'options' => array(
                 'label' => 'Message of the day:',
             ),
+            'attributes' => array(
+                'placeholder' => 'Enter a new MOTD...',
+            ),
         ));
 
         $this->add(array(
