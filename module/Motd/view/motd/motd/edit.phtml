@@ -1,17 +1,21 @@
 <?php
 $form = $this->form;
 $form->prepare();
-$form->setAttribute('action', $this->url('motd/update'));
+$form->setAttribute('action', '');
 $form->setAttribute('method', 'post');
+
+if (false !== $this->updated):
 ?>
+<div class="alert alert-success"><strong>Hoorah!</strong> The new MOTD has been saved!</div>
+<?php endif; ?>
 
 <?php echo $this->form()->openTag($form) ?>
 
     <dl class="zend_form">
-        <?php echo $this->formElementErrors($form->get('motd')) ?>
+        <?php echo $this->formElementErrors($form->get('message')) ?>
 
-        <dt><?php echo $this->formLabel($form->get('motd')) ?></dt>
-        <dd><?php echo $this->formInput($form->get('motd')) ?></dd>
+        <dt><?php echo $this->formLabel($form->get('message')) ?></dt>
+        <dd><?php echo $this->formInput($form->get('message')) ?></dd>
 
         <dd><?php echo $this->formButton($form->get('save')) ?></dd>
     </dl>
