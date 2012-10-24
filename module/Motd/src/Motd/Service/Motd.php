@@ -42,12 +42,25 @@ class Motd implements ServiceLocatorAwareInterface
         return null === $motd ? '' : $motd->getMessage();
     }
 
+    /**
+     * Save the Motd.
+     */
+    public function save()
+    {
+        $this->getEntityManager()->flush($this->getEntity());
+    }
+
+    /**
+     * Get the Motd entity.
+     *
+     * @return MotdEntity
+     */
     public function getEntity()
     {
         $entity = $this->getRepository()->find(1);
 
         if (null === $entity) {
-            $entity = $this->createMotd('');
+            $entity = $this->createMotd();
         }
 
         return $entity;
@@ -70,13 +83,11 @@ class Motd implements ServiceLocatorAwareInterface
     /**
      * Creates a new Motd.
      *
-     * @param   string  $message
-     *
      * @return  Motd\Entity\Motd
      */
-    protected function createMotd($message)
+    protected function createMotd()
     {
-        $motd = new MotdEntity($message);
+        $motd = new MotdEntity;
 
         $this->getEntityManager()->persist($motd);
 

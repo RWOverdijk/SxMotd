@@ -1,4 +1,11 @@
 <?php
+namespace Motd;
+
+use DoctrineORMModule\Stdlib\Hydrator\DoctrineEntity;
+use Motd\Controller\MotdController;
+use Motd\Form\MotdForm;
+use Motd\Entity\Motd as MotdEntity;
+
 return array(
     'doctrine' => array(
         'driver' => array(
@@ -19,8 +26,17 @@ return array(
         ),
     ),
     'controllers' => array(
-        'invokables' => array(
-            'Motd\Controller\Motd' => 'Motd\Controller\MotdController',
+        'factories' => array(
+            'Motd\Controller\Motd' => function($sm) {
+                $entityManager  = $sm->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+                $form           = new MotdForm(new DoctrineEntity($entityManager));
+                $controller     = new MotdController;
+
+                $form->bind($sm->getServiceLocator()->get('Motd')->getEntity());
+                $controller->setForm($form);
+
+                return $controller;
+            },
         ),
     ),
     'view_manager' => array(
@@ -30,10 +46,10 @@ return array(
     ),
     'router' => array(
         'routes' => array(
-            'motd' => array(
+            'motd-edit' => array(
                 'type'    => 'Literal',
                 'options' => array(
-                    'route'    => '/motd',
+                    'route'    => '/edit',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Motd\Controller',
                         'controller'    => 'Motd',
